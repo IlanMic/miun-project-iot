@@ -83,7 +83,7 @@ int main()
 	bool menuLoop = true;
 	while(true)
     {
-        temperature == get_temperature();
+        temperature = get_temperature();
         if(temperature < 51.0)
         {
             cout << "Sous-regime:" << temperature << endl;
