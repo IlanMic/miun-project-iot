@@ -36,7 +36,7 @@ float get_temperature()
 {
     string file_name = "/sys/class/thermal/thermal_zone0/temp";
     ifstream temp_raspb_file;
-    float temp_raspb = 0.0;
+    float temp_raspb = 0.0f;
     stringstream buff;
 
     //we read the temperature of the raspberr's CPU and put it in the buffer
@@ -48,7 +48,6 @@ float get_temperature()
     temp_raspb = stof(buff.str());
 
     cout << stof(buff.str()) << endl;
-
 
     //convert the value of the temperature in celsius
     temp_raspb = temp_raspb / 1000.0; 
