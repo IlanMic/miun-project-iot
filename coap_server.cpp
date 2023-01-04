@@ -48,7 +48,7 @@ float get_temperature()
     temp_raspb = stof(buff.str());
 
     //convert the value of the temperature in celsius
-    temp_raspb = temp_raspb / 100; 
+    temp_raspb = temp_raspb / 1000; 
     return temp_raspb;
 }
 
