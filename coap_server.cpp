@@ -51,7 +51,7 @@ float get_temperature()
 
 
     //convert the value of the temperature in celsius
-    temp_raspb = temp_raspb / 1000; 
+    temp_raspb = temp_raspb / 1000.0; 
     return temp_raspb;
 }
 
