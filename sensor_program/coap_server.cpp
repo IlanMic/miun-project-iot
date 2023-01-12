@@ -143,8 +143,8 @@ int main(void) {
     coap_add_resource(ctx, resource);
     cout << "Before sleep" << endl;
     sleep(1);
-    cout << "After sleep / before coap_io_process" << endl;
-    coap_io_process(ctx, COAP_IO_WAIT);  
+    //cout << "After sleep / before coap_io_process" << endl;
+    //coap_io_process(ctx, COAP_IO_WAIT);  
     cout << "Ending the loop" << endl;
   }
 
