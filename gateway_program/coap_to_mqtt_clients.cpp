@@ -169,19 +169,24 @@ int main()
 	int i = 0;
 	while(menuLoop == true)
 	{
+		cout << "Entering the loop" << endl;
         //Getting the temperature of the CPU from the CoAP server
+		cout << "Before formatting the message" << endl;
 		msg = get("temp_cpu");
 		//cout << "Received value n" << i << ": " << getHeader(buffer) << endl;
         //msg = get_temperature_cpu();
-		
+		cout << "After formatting the message + Before sending the message" << endl;
         //Sending the request
         sendto(sockfd, msg.c_str(), msg.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
+		cout << "After sending the message + Receiving the response" << endl;
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
         cout << "Header: \n" << getHeader(buffer) << "\n\nPayload: \n" << getPayload(buffer) << "\n\n" << endl;
 		
 		i++;
+		cout << "Before the sleep" << endl;
 		sleep(1);
+		cout << "After the sleep + end of loop" << endl;
 	}
 	
 	close(sockfd);
