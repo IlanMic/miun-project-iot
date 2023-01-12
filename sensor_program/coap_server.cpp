@@ -95,6 +95,8 @@ int main(void) {
   int result = EXIT_FAILURE;;
   coap_str_const_t *ruri = coap_make_str_const("temp_cpu");
   coap_startup();
+  const char * temperature_rpi = convert_float_to_char_ptr(get_temperature());
+  cout << "First measured value: " << temperature_rpi << endl;
 
   /* resolve destination address where server should be sent */
   if (resolve_address("localhost", "5683", &dst) < 0) {
