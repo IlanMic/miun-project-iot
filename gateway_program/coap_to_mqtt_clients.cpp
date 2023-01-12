@@ -171,15 +171,17 @@ int main()
 	{
         //Getting the temperature of the CPU from the CoAP server
 		msg = get("temp_cpu");
-		cout << "Received value n" << i << ": " << getHeader(buffer) << endl;
+		//cout << "Received value n" << i << ": " << getHeader(buffer) << endl;
         //msg = get_temperature_cpu();
 		
         //Sending the request
-        /*sendto(sockfd, msg.c_str(), msg.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
+        sendto(sockfd, msg.c_str(), msg.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
         cout << "Header: \n" << getHeader(buffer) << "\n\nPayload: \n" << getPayload(buffer) << "\n\n" << endl;
-		*/
+		
+		i++;
+		sleep(1);
 	}
 	
 	close(sockfd);
