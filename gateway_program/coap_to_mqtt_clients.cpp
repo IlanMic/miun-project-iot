@@ -33,67 +33,6 @@ string getPayload(char* buffer, int bufferLength){
     return payload;
 }
 
-/*
-//GET Request 
-string get(string path)
-{
-	int sizePathLength = 4;
-
-	string pathToResource = path;
-
-	//The string message will contain the message of the request
-	string message= "";
-
-    //Version 1 "01", Type NON-Confirmable "01" and no token "0000"
-    unsigned char messageInformation = 0b01010000;
-
-    //GET method "0000 0001"
-    unsigned char code = 0b00000001;
-
-	//Random message IDs
-    unsigned char messageID[] = {0b00000000, 0b00000001};
-
-	//Delta -> Uri-Host: 3 (0011) / Length -> coap.me: 7 (0111)
-    unsigned char optionHost = 0b00110111;
-
-	//Host: coap.me
-	unsigned char host[] = { 0b01100011, 0b01101111, 0b01100001, 0b01110000, 0b00101110, 0b01101101, 0b01100101 };
-
-	unsigned char optionResource;
-	int pathLength = path.length();
-	if(pathLength == 4)
-	{
-		optionResource = 0b10000100;
-	}
-	else if (pathLength == 5)
-	{
-		optionResource = 0b10000101;
-	}
-	pathToResource = path;
-
-	//Write the message with the different char
-	message.push_back(messageInformation);
-	message.push_back(code);
-	
-	for(char id: messageID)
-	{
-		message.push_back(id);
-	}
-
-	message.push_back(optionHost);
-
-	for(char h: host)
-	{
-		message.push_back(h);
-	}
-
-	message.push_back(optionResource);
-
-	message += pathToResource;
-
-	return message;
-}*/
-
 //GET Request 
 string get_temperature_cpu()
 {
@@ -109,12 +48,7 @@ string get_temperature_cpu()
 	//Random message IDs
     unsigned char messageID[] = {0b00000000, 0b00000001};
 
-	//Delta -> Uri-Host: 3 (0011) / Length -> coap.me: 7 (0111)
-    //unsigned char optionHost = 0b00110111;
-
-	//Host: coap.me
-	//unsigned char host[] = { 0b01100011, 0b01101111, 0b01100001, 0b01110000, 0b00101110, 0b01101101, 0b01100101 };
-
+	//Options for the resource: URI-Path -> 11 / Option length: temp_cpu -> 8
 	unsigned char optionForResource = { 0b10111000};
 
 	//path to ressource: temp_cpu
