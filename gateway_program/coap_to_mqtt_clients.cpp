@@ -223,6 +223,7 @@ int main()
 	bool menuLoop = true;
 	while(menuLoop == true)
 	{
+		cout << "Entering the loop" << endl;
         //Getting the temperature of the CPU from the CoAP server
 		msg = get_temperature_cpu();
         //Sending the request
