@@ -25,10 +25,10 @@ string getHeader(string buffer)
 //Get the content of the payload from the message
 string getPayload(char* buffer, int bufferLength){
     string payload;
-	for(int i = 6; i < bufferLength; i++)
+	for(int i = 5; i < bufferLength; i++)
 	{
 		payload += buffer[i];
-	}
+	} 
     //payload = buffer.substr(1 + buffer.find(0b11111111));
     return payload;
 }
