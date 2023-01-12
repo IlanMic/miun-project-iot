@@ -92,21 +92,17 @@ string get_temperature_cpu()
 	return message;
 }
 
-string convert_coap_to_mqtt(string coap_message)
+/*string convert_coap_to_mqtt(string coap_message)
 {
 	string content_to_send_to_broker = coap_message;
-}
+}*/
 
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message)
 {
-	// Socket file descriptor
 	int sockfd;
-	// Buffer to store the response
 	char buffer[MAXLINE];
-	// Address of the server
 	struct sockaddr_in servaddr;
-	// message to send the request, input of the user, path the user wants to access
-	string messageCoAP;
+	string message_coap;
 
 	// Create a socket file descriptor
 	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
@@ -127,9 +123,9 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
 	char* payload;
 	payload = (char*)message->payload;
 	cout << *(payload) << endl;
-	messageCoAP = get_temperature_cpu();
+	message_coap = get_temperature_cpu();
 	cout << 2 << endl;
-	sendto(sockfd, messageCoAP.c_str(), messageCoAP.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
+	sendto(sockfd, message_coap.c_str(), message_coap.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
 
     printf("Message arrived\n");
     printf("     topic: %s\n", topicName);
@@ -234,11 +230,9 @@ int main()
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
 		sleep(1);
-
+		cout << "Waiting to publish the message" << endl;
 		MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
-
-		
-		
+		cout << "Message just published" << endl;
 	}
 
 	MQTTClient_disconnect(mqttClient, 5000);
