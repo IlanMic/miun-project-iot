@@ -10,7 +10,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                "-lcoap-3"
+                "-lcoap-3",
+                "-lpaho-mqtt3c"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -31,7 +32,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                "-lcoap-3"
+                "-lcoap-3",
+                "-lpaho-mqtt3c"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -55,7 +57,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                "-lcoap-3"
+                "-lcoap-3",
+                "-lpaho-mqtt3c"
             ],
             "options": {
                 "cwd": "${fileDirname}"
