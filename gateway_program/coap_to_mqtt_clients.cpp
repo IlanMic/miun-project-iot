@@ -185,6 +185,7 @@ int main()
 		cout << "After sending the message + Receiving the response" << endl;
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
+		cout << "Response received" << endl;
         cout << "Header: \n" << getHeader(buffer) << "\n\nPayload: \n" << getPayload(buffer) << "\n\n" << endl;
 		cout << "Before the sleep" << endl;
 		sleep(1);

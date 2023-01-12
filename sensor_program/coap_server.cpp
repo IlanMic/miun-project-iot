@@ -125,7 +125,7 @@ int main(void) {
                           coap_show_pdu(LOG_WARNING, response);
                         });
   coap_add_resource(ctx, resource);
-  while(true){ 
+ /* while(true){ 
     cout << "Starting looping" << endl;
     temperature_rpi = convert_float_to_char_ptr(get_temperature());
     coap_delete_resource(ctx, resource);
@@ -147,7 +147,7 @@ int main(void) {
     //cout << "After sleep / before coap_io_process" << endl;
     //coap_io_process(ctx, COAP_IO_WAIT);  
     cout << "Ending the loop" << endl;
-  }
+  }*/
 
   result = EXIT_SUCCESS;
  finish:
