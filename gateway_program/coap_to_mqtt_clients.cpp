@@ -205,6 +205,8 @@ int main()
         }
     }
 
+
+	MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
 	
 	// Creating socket file descriptor
 	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
@@ -218,6 +220,7 @@ int main()
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(PORT);
 	servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
 
 	//CoAPClient getting temperature values and MQTTClient transmitting them to MQTTBroker
 	bool menuLoop = true;
