@@ -171,7 +171,7 @@ int main()
 		cout << "Entering the loop" << endl;
         //Getting the temperature of the CPU from the CoAP server
 		cout << "Before formatting the message" << endl;
-		msg = get("temp_cpu");
+		msg = get_temperature_cpu();
 		//cout << "Received value n" << i << ": " << getHeader(buffer) << endl;
         //msg = get_temperature_cpu();
 		cout << "After formatting the message + Before sending the message" << endl;
