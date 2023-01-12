@@ -166,7 +166,6 @@ int main()
 
 	//CoAP menu
 	bool menuLoop = true;
-	int i = 0;
 	while(menuLoop == true)
 	{
 		cout << "Entering the loop" << endl;
@@ -182,8 +181,6 @@ int main()
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
         cout << "Header: \n" << getHeader(buffer) << "\n\nPayload: \n" << getPayload(buffer) << "\n\n" << endl;
-		
-		i++;
 		cout << "Before the sleep" << endl;
 		sleep(1);
 		cout << "After the sleep + end of loop" << endl;

@@ -99,7 +99,7 @@ int main(void) {
   cout << "First measured value: " << *(convert_float_to_char_ptr(get_temperature())) << endl;
 
   /* resolve destination address where server should be sent */
-  if (resolve_address("localhost", "5683", &dst) < 0) {
+  if (resolve_address("127.0.0.1", "5683", &dst) < 0) {
     coap_log(LOG_CRIT, "failed to resolve address\n");
     goto finish;
   }
