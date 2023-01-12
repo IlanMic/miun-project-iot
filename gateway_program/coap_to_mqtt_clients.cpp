@@ -29,6 +29,7 @@ string getPayload(string buffer){
     return payload;
 }
 
+/*
 //GET Request 
 string get(string path)
 {
@@ -87,7 +88,7 @@ string get(string path)
 	message += pathToResource;
 
 	return message;
-}
+}*/
 
 //GET Request 
 string get_temperature_cpu()
