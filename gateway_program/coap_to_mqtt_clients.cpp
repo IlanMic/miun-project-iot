@@ -25,7 +25,7 @@ string getHeader(string buffer)
 //Get the content of the payload from the message
 string getPayload(char* buffer, int bufferLength){
     string payload;
-	for(int i = 13; i < bufferLength; i++)
+	for(int i = 6; i < bufferLength; i++)
 	{
 		payload += buffer[i];
 	}
