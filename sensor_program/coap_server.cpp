@@ -126,6 +126,7 @@ int main(void) {
                         });
   coap_add_resource(ctx, resource);
   while(true){ 
+    cout << "Starting looping" << endl;
     coap_delete_resource(ctx, resource);
     resource = coap_resource_init(ruri, 0);
     coap_register_handler(resource, COAP_REQUEST_GET,
@@ -140,8 +141,11 @@ int main(void) {
                             coap_show_pdu(LOG_WARNING, response);
                           });
     coap_add_resource(ctx, resource);
+    cout << "Before sleep" << endl;
     sleep(1);
+    cout << "After sleep / before coap_io_process" << endl;
     coap_io_process(ctx, COAP_IO_WAIT);  
+    cout << "Ending the loop" << endl;
   }
 
   result = EXIT_SUCCESS;
