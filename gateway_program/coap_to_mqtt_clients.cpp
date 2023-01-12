@@ -111,6 +111,8 @@ string get_temperature_cpu()
 	//Host: coap.me
 	//unsigned char host[] = { 0b01100011, 0b01101111, 0b01100001, 0b01110000, 0b00101110, 0b01101101, 0b01100101 };
 
+	unsigned char optionForResource = { 0b10111000};
+
 	//path to ressource: temp_cpu
 	unsigned char pathToResource[] = { 0b01110100, 0b01100101, 0b01101101, 0b01110000 ,0b01011111, 0b01100011, 0b01110000, 0b01110101 };
 
@@ -133,6 +135,8 @@ string get_temperature_cpu()
 	//message.push_back(optionResource);
 
 	//message += pathToResource;
+
+	message.push_back(optionForResource);
 
 	for(char p: pathToResource)
 	{
