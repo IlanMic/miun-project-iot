@@ -206,7 +206,11 @@ int main()
     }
 
 	cout << "Waiting to publish message" << endl;
-	MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
+	if(MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken) != MQTTCLIENT_SUCCESS)
+	{
+    	printf("Failed to publish, return code %d\n", rc);
+    	rc = EXIT_FAILURE;
+	}
 	cout << "Message published to broker" << endl;
 
 	// Creating socket file descriptor
