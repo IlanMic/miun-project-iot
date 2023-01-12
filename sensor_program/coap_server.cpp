@@ -127,6 +127,7 @@ int main(void) {
   coap_add_resource(ctx, resource);
   while(true){ 
     cout << "Starting looping" << endl;
+    temperature_rpi = convert_float_to_char_ptr(get_temperature());
     coap_delete_resource(ctx, resource);
     resource = coap_resource_init(ruri, 0);
     coap_register_handler(resource, COAP_REQUEST_GET,
