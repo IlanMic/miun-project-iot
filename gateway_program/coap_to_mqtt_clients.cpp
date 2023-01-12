@@ -23,9 +23,13 @@ string getHeader(string buffer)
 }
 
 //Get the content of the payload from the message
-string getPayload(string buffer){
+string getPayload(char* buffer, int bufferLength){
     string payload;
-    payload = buffer.substr(1 + buffer.find(0b11111111));
+	for(int i = 13; i < bufferLength; i++)
+	{
+		payload += buffer[i];
+	}
+    //payload = buffer.substr(1 + buffer.find(0b11111111));
     return payload;
 }
 
@@ -186,7 +190,7 @@ int main()
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
 		cout << "Response received" << endl;
-        cout << "Header: \n" << getHeader(buffer) << "\n\nPayload: \n" << getPayload(buffer) << "\n\n" << endl;
+        cout << "Header: \n" << getHeader(buffer) << "\n\nPayload: \n" << getPayload(buffer, n) << "\n\n" << endl;
 		cout << "Before the sleep" << endl;
 		sleep(1);
 		cout << "After the sleep + end of loop" << endl;
