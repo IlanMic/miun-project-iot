@@ -205,9 +205,10 @@ int main()
         }
     }
 
-
+	cout << "Waiting to publish message" << endl;
 	MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
-	
+	cout << "Message published to broker" << endl;
+
 	// Creating socket file descriptor
 	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
 		perror("socket creation failed");
