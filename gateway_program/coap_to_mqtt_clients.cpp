@@ -71,17 +71,6 @@ string get_temperature_cpu()
 		message.push_back(id);
 	}
 
-	/*message.push_back(optionHost);
-
-	for(char h: host)
-	{
-		message.push_back(h);
-	}*/
-
-	//message.push_back(optionResource);
-
-	//message += pathToResource;
-
 	message.push_back(optionForResource);
 
 	for(char p: pathToResource)
@@ -92,63 +81,6 @@ string get_temperature_cpu()
 	return message;
 }
 
-/*string convert_coap_to_mqtt(string coap_message)
-{
-	string content_to_send_to_broker = coap_message;
-}*/
-
-int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message)
-{
-	int sockfd;
-	char buffer[MAXLINE];
-	struct sockaddr_in servaddr;
-	string message_coap;
-
-	// Create a socket file descriptor
-	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
-		perror("socket creation failed");
-		exit(EXIT_FAILURE);
-	}
-	
-	// Reserve memory to store the server address
-	memset(&servaddr, 0, sizeof(servaddr));
-
-	
-		
-	// CoAP server network info
-	servaddr.sin_family = AF_INET;
-	servaddr.sin_port = htons(PORT);
-	servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-	char* payload;
-	payload = (char*)message->payload;
-	cout << *(payload) << endl;
-	message_coap = get_temperature_cpu();
-	cout << 2 << endl;
-	sendto(sockfd, message_coap.c_str(), message_coap.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
-
-    printf("Message arrived\n");
-    printf("     topic: %s\n", topicName);
-    printf("   message: %.*s\n", message->payloadlen, (char*)message->payload);
-	
-	
-	
-    MQTTClient_freeMessage(&message);
-    MQTTClient_free(topicName);
-    return 1;
-}
-
-void connlost(void *context, char *cause)
-{
-    printf("\nConnection lost\n");
-    printf("     cause: %s\n", cause);
-}
-
-void delivered(void *context, MQTTClient_deliveryToken dt)
-{
-    printf("Message with token value %d delivery confirmed\n", dt);
-    deliveredtoken = dt;
-}
 
 // Menu
 int main() 
@@ -170,13 +102,6 @@ int main()
     MQTTClient_create(&mqttClient, ADDRESS, "RaspberryPi", 
     MQTTCLIENT_PERSISTENCE_NONE, NULL);
 
-	if ((rc = MQTTClient_setCallbacks(mqttClient, NULL, connlost, msgarrvd, delivered)) != MQTTCLIENT_SUCCESS)
-    {
-        printf("Failed to set callbacks, return code %d\n", rc);
-        rc = EXIT_FAILURE;
-        MQTTClient_destroy(&mqttClient);
-    }
-
     connectionOptions.keepAliveInterval = 20;
     connectionOptions.cleansession = 1;
 
@@ -184,34 +109,6 @@ int main()
         printf("Failed to connect\n");
         return (-1);
     }
-
-	if ((rc = MQTTClient_subscribe(mqttClient, TOPIC, QOS)) != MQTTCLIENT_SUCCESS)
-    {
-    	printf("Failed to subscribe, return code %d\n", rc);
-    	rc = EXIT_FAILURE;
-    }    
-	else
-    {
-    	int ch;
-    	do
-    	{
-        	ch = getchar();
-    	} while (ch!='Q' && ch != 'q');
-
-        if ((rc = MQTTClient_unsubscribe(mqttClient, TOPIC)) != MQTTCLIENT_SUCCESS)
-        {
-        	printf("Failed to unsubscribe, return code %d\n", rc);
-        	rc = EXIT_FAILURE;
-        }
-    }
-
-	cout << "Waiting to publish message" << endl;
-	if(MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken) != MQTTCLIENT_SUCCESS)
-	{
-    	printf("Failed to publish, return code %d\n", rc);
-    	rc = EXIT_FAILURE;
-	}
-	cout << "Message published to broker" << endl;
 
 	// Creating socket file descriptor
 	if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
@@ -234,14 +131,21 @@ int main()
 		cout << "Entering the loop" << endl;
         //Getting the temperature of the CPU from the CoAP server
 		msg = get_temperature_cpu();
+		cout << "Message formatted, ready to send" << endl;
         //Sending the request
         sendto(sockfd, msg.c_str(), msg.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
-        n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
+        cout << "Message sent to CoAP server" << endl;
+		n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
 		sleep(1);
+		//cout << "Received measure of the temperature: " << getPayload(buffer, n) << endl;
+		const char* payload_in_mqtt = "50.00";
+		message.payload =(void *) payload_in_mqtt;
+		message.payloadlen = 1;
 		cout << "Waiting to publish the message" << endl;
 		MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
 		cout << "Message just published" << endl;
+		cout << "Restarting the loop\n" << endl;
 	}
 
 	MQTTClient_disconnect(mqttClient, 5000);
