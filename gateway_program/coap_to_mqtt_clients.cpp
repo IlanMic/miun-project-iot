@@ -139,10 +139,10 @@ int main()
         buffer[n] = '\0';
 		sleep(1);
 		//cout << "Received measure of the temperature: " << getPayload(buffer, n) << endl;
-		const char* payload_in_mqtt = "50.00";
+		const char* payload_in_mqtt = getPayload(buffer, n).c_str();
 		message.payload =(void *) payload_in_mqtt;
 		message.payloadlen = 1;
-		cout << "Waiting to publish the message" << endl;
+		cout << "Waiting to publish the message: " << getPayload(buffer, n).c_str() << endl;
 		MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
 		cout << "Message just published" << endl;
 		cout << "Restarting the loop\n" << endl;
