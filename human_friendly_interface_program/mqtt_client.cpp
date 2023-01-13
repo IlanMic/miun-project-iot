@@ -50,7 +50,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     system("clear");
     if(temperature < 40.0)
     {
-        cout << "The CPU is too cold. The fans should rotate slower." << endl;
+        cout << "The CPU is too cold (" << temperature <<" °C). The fans should rotate slower." << endl;
     } 
     else if(temperature >= 40.0 && temperature < 60.0)
     {
@@ -73,7 +73,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     }
     else if(temperature >= 60.0 && temperature < 80.0)
     {
-        cout << "The CPU is being overwhelmed. The fans should rotate faster." << endl;
+        cout << "The CPU is being overwhelmed (" << temperature <<" °C). The fans should rotate faster." << endl;
     }
     else
     {
