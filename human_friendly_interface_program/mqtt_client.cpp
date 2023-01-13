@@ -62,7 +62,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     }
     else
     {
-        cout << "The CPU is overheating (" << temperature <<°"). The fans should either rotate way faster or the desktop should be shut down.\n" << endl; 
+        cout << "The CPU is overheating (" << temperature <<"°C). The fans should either rotate way faster or the desktop should be shut down.\n" << endl; 
         cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" << endl;
         cout << "   ⣿⣿⠀⠀⢹⣿⣿⡿⠛⣉⣠⣤⣶⣶⣶⣶⣶⣶⣤⣄⣉⠛⢿⣿⣿⣏⠀⠀⣿⣿\n" << endl;
         cout << "   ⣿⣿⣿⣾⣿⠟⣡⡴⠟⠉⠀⠀⠀⢻⣿⣿⣿⡄⠀⠀⠉⠻⢦⣌⠻⣿⣷⣾⣿⣿\n" << endl;
