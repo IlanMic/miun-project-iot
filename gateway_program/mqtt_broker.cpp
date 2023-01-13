@@ -409,7 +409,6 @@ string disconnect()
 */
 string publish_on_topic(char buffer[])
 {
-	cout << "Fonction publish_on_topic" << endl;
 	//writing the publish message send to the other sockets
 	string publish_message = "";
 	unsigned char byte_1;
@@ -458,8 +457,6 @@ string publish_on_topic(char buffer[])
 		publish_message.push_back(buffer[i]);
 		content_publication.push_back(buffer[i]);
 	}	
-
-	cout << "Published message: " << content_publication << endl;
 	return publish_message;
 }
 
@@ -476,8 +473,6 @@ string get_retained_message(char topic[])
 	unsigned char lsb_topic;
 	unsigned char msb_packet_id;
 	unsigned char lsb_packet_id;
-
-	cout << "\nRetained message for: " << topic << endl;
 	string message = "";
 	string topic_name, retained_msg = "";
 	unsigned short topic_name_length, retained_msg_length;
@@ -714,7 +709,7 @@ int main(int argc, char const* argv[])
 		return -5;
 	}
 
-	printf("Server starting to listen...");
+	printf("Server starting to listen...\n\n");
 
 	while(1)
 	{

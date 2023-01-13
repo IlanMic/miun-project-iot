@@ -18,7 +18,7 @@
 using namespace std;
 
 //Get the temperature from the raspberry
- float get_temperature()
+float get_temperature()
 {
     string file_name = "/sys/class/thermal/thermal_zone0/temp";
     ifstream temp_raspb_file;
@@ -33,12 +33,17 @@ using namespace std;
     //convert the value of the temperature from string to float
     temp_raspb = stof(buff.str());
 
-    cout << stof(buff.str()) << endl;
-
     //convert the value of the temperature in celsius
     temp_raspb = temp_raspb / 1000.0; 
-    cout << "Measured value: " << temp_raspb << endl;
     return temp_raspb;
+}
+
+//Generate a random but realistic temperature to test the output from the interface of the final MQTT Client
+float get_random_but_possible_temperature()
+{
+  float temp_raspb;
+  temp_raspb = 20.0 + static_cast<float> (rand()) / (static_cast <float> (RAND_MAX/(100.0-20.0)));
+  return temp_raspb;
 }
 
 //Convert a float value to a char pointer
@@ -48,7 +53,6 @@ const char* convert_float_to_char_ptr(float temperature)
     const char* temp_rpi;
     temperature_raspberry = to_string(temperature);
     temp_rpi = temperature_raspberry.c_str();
-    cout << "Converted string value: " << temp_rpi << endl;
     return temp_rpi;
 }
 
@@ -95,8 +99,6 @@ int main(void) {
   int result = EXIT_FAILURE;;
   coap_str_const_t *ruri = coap_make_str_const("temp_cpu");
   coap_startup();
-  const char * temperature_rpi = convert_float_to_char_ptr(get_temperature());
-  cout << "First measured value: " << *(convert_float_to_char_ptr(get_temperature())) << endl;
 
   /* resolve destination address where server should be sent */
   if (resolve_address("127.0.0.1", "5683", &dst) < 0) {
@@ -121,13 +123,12 @@ int main(void) {
                           coap_show_pdu(LOG_WARNING, request);
                           coap_pdu_set_code(response, COAP_RESPONSE_CODE_CONTENT);
                           coap_add_data(response, 5,
-                                        (const uint8_t *)convert_float_to_char_ptr(get_temperature()));
+                                        //(const uint8_t *)convert_float_to_char_ptr(get_temperature()));
+                                        (const uint8_t *)convert_float_to_char_ptr(get_random_but_possible_temperature()));
                           coap_show_pdu(LOG_WARNING, response);
                         });
   coap_add_resource(ctx, resource);
   while(true){ 
-    cout << "Starting looping" << endl;
-    temperature_rpi = convert_float_to_char_ptr(get_temperature());
     coap_delete_resource(ctx, resource);
     resource = coap_resource_init(ruri, 0);
     coap_register_handler(resource, COAP_REQUEST_GET,
@@ -138,15 +139,13 @@ int main(void) {
                             coap_show_pdu(LOG_WARNING, request);
                             coap_pdu_set_code(response, COAP_RESPONSE_CODE_CONTENT);
                             coap_add_data(response, 5,
-                                          (const uint8_t *)convert_float_to_char_ptr(get_temperature()));
+                                          //(const uint8_t *)convert_float_to_char_ptr(get_temperature()));
+                                          (const uint8_t *)convert_float_to_char_ptr(get_random_but_possible_temperature()));
                             coap_show_pdu(LOG_WARNING, response);
                           });
     coap_add_resource(ctx, resource);
-    cout << "Before sleep" << endl;
     sleep(1);
-    //cout << "After sleep / before coap_io_process" << endl;
     coap_io_process(ctx, COAP_IO_WAIT);  
-    cout << "Ending the loop" << endl;
   }
 
   result = EXIT_SUCCESS;

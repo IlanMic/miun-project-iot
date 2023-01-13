@@ -30,7 +30,6 @@ float convert_char_ptr_to_float(char * char_ptr)
 {
     string string_value_of_temp = char_ptr;
     float received_temperature = stof(string_value_of_temp);
-    cout << "Converted value: " << received_temperature << endl;
     return received_temperature;
 }
 
@@ -46,10 +45,9 @@ float convert_char_ptr_to_float(char * char_ptr)
 */
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message)
 {
-    cout << "Entering msgarrvd function" << endl;
 	char* payload = (char*)message->payload;
     float temperature = convert_char_ptr_to_float(payload);
-    cout << "Final received temperature: " << temperature << endl;
+    system("clear");
     if(temperature < 40.0)
     {
         cout << "The CPU is too cold. The fans should rotate slower." << endl;
@@ -64,8 +62,9 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     }
     else
     {
-        cout << "The CPU is burning. The fans should either rotate way faster or the desktop should be shut down." << endl;   
+        cout << "The CPU is overheating. The fans should either rotate way faster or the desktop should be shut down." << endl;   
     }
+
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
     return 1;
@@ -155,6 +154,7 @@ int main(int argc, char* argv[]) {
     {
         cout << "Failed to unsubscribe, return code" << rc << ".\n";
     }
+
     MQTTClient_destroy(&mqttClient);
 
     return (0);

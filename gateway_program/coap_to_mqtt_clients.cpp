@@ -131,24 +131,19 @@ int main()
 	bool menuLoop = true;
 	while(menuLoop == true)
 	{
-		cout << "Entering the loop" << endl;
         //Getting the temperature of the CPU from the CoAP server
 		msg = get_temperature_cpu();
-		cout << "Message formatted, ready to send" << endl;
+
         //Sending the request
         sendto(sockfd, msg.c_str(), msg.length(), MSG_CONFIRM, (const struct sockaddr *) &servaddr, sizeof(servaddr));
-        cout << "Message sent to CoAP server" << endl;
 		n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
 		sleep(1);
-		//cout << "Received measure of the temperature: " << getPayload(buffer, n) << endl;
+		
 		const char* payload_in_mqtt = getPayload(buffer, n).c_str();
 		message.payload =(void *) payload_in_mqtt;
 		message.payloadlen = sizeof(payload_in_mqtt);
-		cout << "Waiting to publish the message: " << getPayload(buffer, n).c_str() << endl;
 		MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
-		cout << "Message just published" << endl;
-		cout << "Restarting the loop\n" << endl;
 	}
 
 	MQTTClient_disconnect(mqttClient, 5000);
