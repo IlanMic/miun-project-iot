@@ -144,7 +144,7 @@ int main()
 		//cout << "Received measure of the temperature: " << getPayload(buffer, n) << endl;
 		const char* payload_in_mqtt = getPayload(buffer, n).c_str();
 		message.payload =(void *) payload_in_mqtt;
-		message.payloadlen = 1;
+		message.payloadlen = sizeof(payload_in_mqtt);
 		cout << "Waiting to publish the message: " << getPayload(buffer, n).c_str() << endl;
 		MQTTClient_publishMessage(mqttClient, TOPIC, &message, &deliveryToken);
 		cout << "Message just published" << endl;
