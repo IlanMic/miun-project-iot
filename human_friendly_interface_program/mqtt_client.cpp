@@ -54,7 +54,22 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     } 
     else if(temperature >= 40.0 && temperature < 60.0)
     {
-        cout << "The CPU is in right conditions. The fans should continue to rotate at the same speed." << endl;
+        cout << "The CPU is in right conditions (" << temperature <<" °C). The fans should continue to rotate at the same speed." << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⡿⠿⠿⠿⠋⠀⠀⠀⠀⠀⠀⢀⣤⣤⣀⣀⠀⠀⠀⠙⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣟⠁⠈⠉⠙⠛⠓⠀⠀⢸⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠛⠛⠶⢶⣤⣤⣤⣴⢶⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠷⣦⣄⡀⠀⠀⠀⠀⠀⣀⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣅⡀⠀⠉⠛⠿⠿⠛⠛⢻⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣷⣾⣄⠀⠀⠀⢠⡾⠋⠛⠷⢶⣤⣤⣤⣤⣴⣾⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⣉⠛⠷⢶⣤⣤⣤⣤⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
     }
     else if(temperature >= 60.0 && temperature < 80.0)
     {
