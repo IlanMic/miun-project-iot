@@ -47,6 +47,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
 {
 	char* payload = (char*)message->payload;
     float temperature = convert_char_ptr_to_float(payload);
+    cout << "Final received temperature: " << temperature << endl;
     if(temperature < 40.0)
     {
         cout << "The CPU is too cold. The fans should rotate slower." << endl;
