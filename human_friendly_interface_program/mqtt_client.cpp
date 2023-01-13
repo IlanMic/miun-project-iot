@@ -50,34 +50,45 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     system("clear");
     if(temperature < 40.0)
     {
-        cout << "The CPU is too cold (" << temperature <<" °C). The fans should rotate slower." << endl;
+        cout << "The CPU is too cold (" << temperature <<" °C). The fans should rotate slower.\n" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⠛⠉⠛⠿⠿⠿⠛⠋⠉⠉⠁⠀⠀⠉⠉⠙⠻⠿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣨⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠻⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣼⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠠⣀⣀⣀⣀⣀⣀⣀⣠⣤⣾⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
     } 
     else if(temperature >= 40.0 && temperature < 60.0)
     {
-        cout << "The CPU is in right conditions (" << temperature <<" °C). The fans should continue to rotate at the same speed." << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⡿⠿⠿⠿⠋⠀⠀⠀⠀⠀⠀⢀⣤⣤⣀⣀⠀⠀⠀⠙⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣟⠁⠈⠉⠙⠛⠓⠀⠀⢸⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠛⠛⠶⢶⣤⣤⣤⣴⢶⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠷⣦⣄⡀⠀⠀⠀⠀⠀⣀⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣅⡀⠀⠉⠛⠿⠿⠛⠛⢻⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣷⣾⣄⠀⠀⠀⢠⡾⠋⠛⠷⢶⣤⣤⣤⣤⣴⣾⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⣉⠛⠷⢶⣤⣤⣤⣤⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
-        cout << "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "The CPU is in right conditions (" << temperature <<" °C). The fans should continue to rotate at the same speed.\n" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⡿⠿⠿⠿⠋⠀⠀⠀⠀⠀⠀⢀⣤⣤⣀⣀⠀⠀⠀⠙⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣟⠁⠈⠉⠙⠛⠓⠀⠀⢸⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠛⠛⠶⢶⣤⣤⣤⣴⢶⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠷⣦⣄⡀⠀⠀⠀⠀⠀⣀⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣅⡀⠀⠉⠛⠿⠿⠛⠛⢻⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣷⣾⣄⠀⠀⠀⢠⡾⠋⠛⠷⢶⣤⣤⣤⣤⣴⣾⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⣉⠛⠷⢶⣤⣤⣤⣤⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
     }
     else if(temperature >= 60.0 && temperature < 80.0)
     {
-        cout << "The CPU is being overwhelmed (" << temperature <<" °C). The fans should rotate faster." << endl;
-    }
-    else
-    {
-        cout << "The CPU is overheating (" << temperature <<" °C). The fans should either rotate way faster or the desktop should be shut down.\n" << endl; 
+        cout << "The CPU is being overwhelmed (" << temperature <<" °C). The fans should rotate faster.\n" << endl;
         cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
         cout << "   ⣿⣿⠀⠀⢹⣿⣿⡿⠛⣉⣠⣤⣶⣶⣶⣶⣶⣶⣤⣄⣉⠛⢿⣿⣿⣏⠀⠀⣿⣿" << endl;
         cout << "   ⣿⣿⣿⣾⣿⠟⣡⡴⠟⠉⠀⠀⠀⢻⣿⣿⣿⡄⠀⠀⠉⠻⢦⣌⠻⣿⣷⣾⣿⣿" << endl;
@@ -93,6 +104,25 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
         cout << "   ⣿⣿⡿⢿⣿⣦⡙⠳⣦⣀⠀⠀⠸⣿⣿⣿⣧⠀⠀⠀⣀⣴⠞⢋⣴⣿⡿⢿⣿⣿" << endl;
         cout << "   ⣿⣿⠀⠀⣿⣿⣿⣷⣤⣉⠙⠛⠿⠿⠿⠿⠿⠿⠛⠋⣉⣤⣾⣿⣿⣯⠀⠀⣿⣿" << endl;
         cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+    }
+    else
+    {
+        cout << "The CPU is overheating (" << temperature <<" °C). The fans should either rotate way faster or the desktop should be shut down.\n" << endl; 
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⠛⠉⠛⠿⠿⠿⠛⠋⠉⠉⠁⠀⠀⠉⠉⠙⠻⠿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣨⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠻⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣼⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠠⣀⣀⣀⣀⣀⣀⣀⣠⣤⣾⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
+        cout << "   ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿" << endl;
     }
 
     MQTTClient_freeMessage(&message);
