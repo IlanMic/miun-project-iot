@@ -458,6 +458,8 @@ string publish_on_topic(char buffer[])
 		publish_message.push_back(buffer[i]);
 		content_publication.push_back(buffer[i]);
 	}	
+
+	cout << "Published message: " << content_publication << endl;
 	return publish_message;
 }
 

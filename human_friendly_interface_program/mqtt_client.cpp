@@ -30,6 +30,7 @@ float convert_char_ptr_to_float(char * char_ptr)
 {
     string string_value_of_temp = char_ptr;
     float received_temperature = stof(string_value_of_temp);
+    cout << "Converted value: " << received_temperature << endl;
     return received_temperature;
 }
 
