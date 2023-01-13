@@ -12,7 +12,10 @@
 	
 #define PORT	5683
 #define MAXLINE 2048
-	
+
+/**
+ * MQTT client constants such as its address, topic it is subscribes to... 
+*/	
 const char *ADDRESS = "tcp://127.0.0.1";
 const char *TOPIC = "temperature/cpu";
 #define QOS         0

@@ -5,81 +5,156 @@
 #include <string>
 #include <string.h>
 #include <MQTTClient.h>
+#include <iostream>
+
 
 using namespace std;
 
-const char *ADDRESS = "tcp://127.0.0.1";
-const char *TOPIC = "temperature/cpu";
+/**
+ * MQTT client constants such as its address, id, topic it is subscribes to... 
+*/
+#define ADDRESS     "tcp://127.0.0.1"
+#define CLIENTID    "mqtt_ed_client"
+#define TOPIC       "temperature/cpu"
+#define QOS         0
+#define TIMEOUT     10000L
+
+volatile MQTTClient_deliveryToken deliveredtoken;
+
+/**
+ * This function's purpose is to convert the pointer of a char type character into float
+ *      This will be used to convert the payload of the received MQTT message from the 
+ *      broker into a readable and comparable value corresponding to the CPU's temperature
+*/
+float convert_char_ptr_to_float(char * char_ptr)
+{
+    string string_value_of_temp = char_ptr;
+    float received_temperature = stof(string_value_of_temp);
+    return received_temperature;
+}
+
+/**
+ * This function's purpose is to print a specific instruction
+ *      based on the CPU's temperature received from the application
+ *          
+ *  If temperature < 40°, the CPU is too cold
+ *  else if 40° <= temperature < 60°, the CPU is at the right temperature
+ *  else if 60° <= temperature < 80°, the CPU is too hot but can handle it, the fans should rotate faster
+ *  else (temperature >= 80°), the fans should rotate way faster than they currently are doing !!
+ * 
+*/
+int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message)
+{
+	char* payload = (char*)message->payload;
+    float temperature = convert_char_ptr_to_float(payload);
+    if(temperature < 40.0)
+    {
+        cout << "The CPU is too cold. The fans should rotate slower." << endl;
+    } 
+    else if(temperature >= 40.0 && temperature < 60.0)
+    {
+        cout << "The CPU is in right conditions. The fans should continue to rotate at the same speed." << endl;
+    }
+    else if(temperature >= 60.0 && temperature < 80.0)
+    {
+        cout << "The CPU is being overwhelmed. The fans should rotate faster." << endl;
+    }
+    else
+    {
+     
+        cout << "The CPU is burning. The fans should either rotate way faster or the desktop should be shut down." << endl;   
+    }
+    MQTTClient_freeMessage(&message);
+    MQTTClient_free(topicName);
+    return 1;
+}
+
+/**
+ * This functions print that the connection with the MQTT Broker has been lost
+ * and the reason why
+*/
+void connlost(void *context, char *cause)
+{
+    printf("\nConnection lost\n");
+    printf("     cause: %s\n", cause);
+}
+
+/**
+ * This function confirms the delivery of the message
+*/
+void delivered(void *context, MQTTClient_deliveryToken dt)
+{
+    printf("Message with token value %d delivery confirmed\n", dt);
+    deliveredtoken = dt;
+}
+
 
 int main(int argc, char* argv[]) {
-    const char *MESSAGE_STRING = "Hello, this is a message from the RevPi";
 
     MQTTClient mqttClient;
     MQTTClient_connectOptions connectionOptions =     MQTTClient_connectOptions_initializer;
     MQTTClient_message message = MQTTClient_message_initializer;
     MQTTClient_deliveryToken deliveryToken;
+    int rc;
 
-    MQTTClient_create(&mqttClient, ADDRESS, "RaspberryPi", 
-    MQTTCLIENT_PERSISTENCE_NONE, NULL);
+    if((rc = MQTTClient_create(&mqttClient, ADDRESS, CLIENTID, 
+    MQTTCLIENT_PERSISTENCE_NONE, NULL)) != MQTTCLIENT_SUCCESS)
+    {
+        cout << "Failed to create client, return code " << rc << ".\n" << endl;;
+        exit(EXIT_FAILURE);
+    }
+
+    if ((rc = MQTTClient_setCallbacks(mqttClient, NULL, connlost, msgarrvd, delivered)) != MQTTCLIENT_SUCCESS)
+    {
+        cout << "Failed to set callbacks, return code " << rc << ".\n" << endl;;
+        rc = EXIT_FAILURE;
+        MQTTClient_destroy(&mqttClient);
+    }
 
     connectionOptions.keepAliveInterval = 20;
     connectionOptions.cleansession = 1;
 
-    if (MQTTClient_connect(mqttClient, &connectionOptions) != MQTTCLIENT_SUCCESS) {
-        printf("Failed to connect\n");
+    /**
+     * the client connects to the broker
+     *  if that would fail, an error code is returned
+     */
+    if ((rc = MQTTClient_connect(mqttClient, &connectionOptions)) != MQTTCLIENT_SUCCESS) {
+        cout << "Failed to connect, return code" << rc << ".\n";
         return (-1);
     }
-    MQTTClient_disconnect(mqttClient, 5000);
+
+    /**
+     * the client subscribes to the topic "temperature/cpu"
+     *  if that would fail, an error code is returned
+     */
+    if ((rc = MQTTClient_subscribe(mqttClient, TOPIC, QOS)) != MQTTCLIENT_SUCCESS)
+    {
+        cout << "Failed to subscribe, return code" << rc << ".\n";
+        rc = EXIT_FAILURE;
+    }
+    else
+    {
+        int ch;
+        do
+        {
+            ch = getchar();
+        } while (ch!='Q' && ch != 'q');
+        if ((rc = MQTTClient_unsubscribe(mqttClient, TOPIC)) != MQTTCLIENT_SUCCESS)
+        {
+            cout << "Failed to unsubscribe, return code" << rc << ".\n";
+            rc = EXIT_FAILURE;
+        }
+    }
+
+    /**
+     * the client disconnects from the broker
+     *  if that would fail, an error code is returned
+     */
+    if ((rc = MQTTClient_disconnect(mqttClient, 5000)) != MQTTCLIENT_SUCCESS)
+    {
+        cout << "Failed to unsubscribe, return code" << rc << ".\n";
+    }
     MQTTClient_destroy(&mqttClient);
 
     return (0);
 }
-
-/*
-// With the library header files included, continue by defining a main function.
-int main()
-{
-    // In order to connect the mqtt client to a broker, 
-    // Define an Ip address pointing to a broker. In this case, the localhost on port 1883.
-    string ip = "localhost:1883";
-    // Then, define an ID to be used by the client when communicating with the broker.
-    std::string id = "consumer";
-
-    // Construct a client using the Ip and Id, specifying usage of MQTT V5.
-    MQTT client(ip, id, create_options(MQTTVERSION_5));
-    // Use the connect method of the client to establish a connection to the broker.
-    client.connect();
-    // In order to receive messages from the broker, specify a topic to subscribe to.
-    client.subscribe("in");
-    // Begin the client's message processing loop, filling a queue with messages.
-    client.start_consuming();
-
-    bool running = true;
-    while (running)
-    {
-        // Construct a message pointer to hold an incoming message.
-        const_message_ptr messagePointer;
-
-        // Try to consume a message, passing messagePointer by reference.
-        // If a message is consumed, the function will return `true`, 
-        // allowing control to enter the if-statement body.
-        if (client.try_consume_message(&messagePointer))
-        {
-            // Construct a string from the message payload.
-            string messageString = messagePointer -> get_payload_str();
-            // Print payload string to console (debugging).
-            cout << messageString << std::endl;
-
-            // Perform processing on the string.
-            // This is where message processing can be passed onto different
-            // functions for parsing. 
-            // Here, we break the loop and exit the program if a `quit` is received.
-            if (messageString == "quit")
-            {
-                running = false;
-            } 
-        }
-    }
-    return 0;
-}
-*/
