@@ -45,6 +45,7 @@ float convert_char_ptr_to_float(char * char_ptr)
 */
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message)
 {
+    cout << "Entering msgarrvd function" << endl;
 	char* payload = (char*)message->payload;
     float temperature = convert_char_ptr_to_float(payload);
     cout << "Final received temperature: " << temperature << endl;
@@ -62,7 +63,6 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     }
     else
     {
-     
         cout << "The CPU is burning. The fans should either rotate way faster or the desktop should be shut down." << endl;   
     }
     MQTTClient_freeMessage(&message);
@@ -98,8 +98,7 @@ int main(int argc, char* argv[]) {
     MQTTClient_deliveryToken deliveryToken;
     int rc;
 
-    if((rc = MQTTClient_create(&mqttClient, ADDRESS, CLIENTID, 
-    MQTTCLIENT_PERSISTENCE_NONE, NULL)) != MQTTCLIENT_SUCCESS)
+    if((rc = MQTTClient_create(&mqttClient, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL)) != MQTTCLIENT_SUCCESS)
     {
         cout << "Failed to create client, return code " << rc << ".\n" << endl;;
         exit(EXIT_FAILURE);
@@ -151,7 +150,7 @@ int main(int argc, char* argv[]) {
      * the client disconnects from the broker
      *  if that would fail, an error code is returned
      */
-    if ((rc = MQTTClient_disconnect(mqttClient, 5000)) != MQTTCLIENT_SUCCESS)
+    if ((rc = MQTTClient_disconnect(mqttClient, 10000)) != MQTTCLIENT_SUCCESS)
     {
         cout << "Failed to unsubscribe, return code" << rc << ".\n";
     }
