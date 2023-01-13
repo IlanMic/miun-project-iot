@@ -409,6 +409,7 @@ string disconnect()
 */
 string publish_on_topic(char buffer[])
 {
+	cout << "Fonction publish_on_topic" << endl;
 	//writing the publish message send to the other sockets
 	string publish_message = "";
 	unsigned char byte_1;
@@ -418,10 +419,10 @@ string publish_on_topic(char buffer[])
 	//Differenciation of the case with retain or without
 	if(get_retain(buffer) == 0)
 	{
-		byte_1 = 0x32;
+		byte_1 = 0x30;
 	} else if(get_retain(buffer) == 1)
 	{
-		byte_1 = 0x33;
+		byte_1 = 0x31;
 	}
 
 	//remaining bytes
@@ -448,11 +449,11 @@ string publish_on_topic(char buffer[])
 		publish_message.push_back(buffer[i]);
 	}
 
-	publish_message.push_back(packet_identifier_msb);
-	publish_message.push_back(packet_identifier_lsb);
+	//publish_message.push_back(packet_identifier_msb);
+	//publish_message.push_back(packet_identifier_lsb);
 
 	//content of the publication
-	for(int i = topic_name_length + 6; i < remaining_length + 2; i++)
+	for(int i = topic_name_length + 4; i < remaining_length + 2; i++)
 	{
 		publish_message.push_back(buffer[i]);
 		content_publication.push_back(buffer[i]);
